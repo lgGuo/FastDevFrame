@@ -1,13 +1,11 @@
 package com.glg.baselib.base;
 
-import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.view.Window;
 import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import com.githang.statusbar.StatusBarCompat;
 import com.glg.baselib.R;
@@ -48,7 +46,7 @@ public abstract class BaseSwipeActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initSwipeBackFinish();
         super.onCreate(savedInstanceState);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
         setContentView(getLayoutID());
         initViews();
 
@@ -178,13 +176,24 @@ public abstract class BaseSwipeActivity
 
 
     /**
+     * 状态栏深浅颜色
+     */
+    protected void setLightStatusBar(boolean lightMode){
+        if(Build.VERSION.SDK_INT <=22){
+            StatusBarCompat.setStatusBarColor(this, Color.parseColor("#9f999999"), false);
+        }else {
+            StatusBarCompat.setStatusBarColor(this, Color.TRANSPARENT, lightMode);
+        }
+    }
+
+
+    /**
      * 透明状态栏
      * @param offsetView 需要偏移的view,防止view顶到状态栏上
      */
     protected void setTansparentStatuBar(View offsetView){
         if(Build.VERSION.SDK_INT <=22){
             StatusBarUtil.setTranslucentForImageViewInFragment(this,0,offsetView);
-
         }else {
             StatusBarUtil.setTranslucentForImageView(this,0,offsetView);
 

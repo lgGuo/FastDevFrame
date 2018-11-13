@@ -170,11 +170,11 @@ public abstract class BaseMvpActivity<V extends MvpView,P extends MvpBasePresent
     /**
      * 浅色状态栏
      */
-    protected void setLightStatusBar(){
+    protected void setLightStatusBar(boolean lightMode){
         if(Build.VERSION.SDK_INT <=22){
             StatusBarCompat.setStatusBarColor(this, Color.parseColor("#9f999999"), false);
         }else {
-            StatusBarCompat.setStatusBarColor(this, Color.TRANSPARENT, true);
+            StatusBarCompat.setStatusBarColor(this, Color.TRANSPARENT, lightMode);
         }
     }
 

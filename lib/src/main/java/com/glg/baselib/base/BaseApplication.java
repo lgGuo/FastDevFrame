@@ -2,6 +2,7 @@ package com.glg.baselib.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.multidex.MultiDex;
 
