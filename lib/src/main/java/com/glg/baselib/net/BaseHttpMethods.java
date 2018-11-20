@@ -41,11 +41,10 @@ public abstract class BaseHttpMethods {
                 .connectTimeout(15, TimeUnit.SECONDS)
                 .readTimeout(15, TimeUnit.SECONDS).
                         writeTimeout(15, TimeUnit.SECONDS);
-//        if (BuildConfig.DEBUG){
-//            builder.addInterceptor(new OkHttpLoggingInterceptor());
-//        }
+        if (BuildConfig.DEBUG){
+            builder.addInterceptor(new OkHttpLoggingInterceptor());
+        }
 
-        builder.addInterceptor(new OkHttpLoggingInterceptor());
         OkHttpClient httpClient =  builder.build();
 
 

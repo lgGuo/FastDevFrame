@@ -140,19 +140,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
 
-    // 知乎图片选择器
-    api "com.github.qingmei2:rximagepicker:2.2.0", {
-        exclude group: 'com.android.support'
-    }
-
-    api "com.github.qingmei2:rximagepicker_support:2.2.0", {
-        exclude group: 'com.android.support'
-    }
-
-    api "com.github.qingmei2:rximagepicker_support_zhihu:2.2.0", {
-        exclude group: 'com.android.support'
-    }
-
     //通用dialog
     api('com.github.Othershe:NiceDialog:1.1.4') {
         exclude group: 'com.android.support'
@@ -168,6 +155,19 @@ dependencies {
     api('cn.bingoogolapple:bga-swipebacklayout:1.1.9@aar') {
         exclude group: 'com.android.support'
     }
+
+    //屏幕适配
+    api('me.jessyan:autosize:1.0.1') {
+        exclude group: 'com.android.support'
+    }
+
+
+    //图片选择器
+    api ('com.github.LuckSiege.PictureSelector:picture_library:v2.2.3') {
+        exclude group: 'com.android.support'
+    }
+
+
 
 }
 
