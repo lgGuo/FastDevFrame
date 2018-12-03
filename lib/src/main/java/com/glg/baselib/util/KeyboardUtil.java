@@ -16,10 +16,13 @@
 package com.glg.baselib.util;
 
 import android.content.Context;
+import android.graphics.Rect;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import com.bumptech.glide.util.Util;
 
 
 /**
@@ -67,6 +70,37 @@ public class KeyboardUtil {
         return inputManager.hideSoftInputFromWindow(view.getWindowToken(),
                 InputMethodManager.HIDE_NOT_ALWAYS);
     }
+
+
+    /**
+     * 保持View始终不会被键盘覆盖
+     */
+    public static void keepViewNotOver(final View rootView, final View contentView) {
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                Rect rect = new Rect();
+                // 获取root在窗体的可视区域
+                rootView.getWindowVisibleDisplayFrame(rect);
+                // 获取root在窗体的不可视区域高度(被其他View遮挡的区域高度)
+                int rootInvisibleHeight = rootView.getRootView().getHeight() - rect.bottom;
+                // 若不可视区域高度大于200，则键盘显示,其实相当于键盘的高度
+                if (rootInvisibleHeight > 200) {
+                    // 显示键盘时
+                    int srollHeight = rootInvisibleHeight - (rootView.getHeight() - contentView.getHeight())
+                            - SystemUtil.getNavigationBarHeight(rootView.getContext());
+                    if (srollHeight > 0) {//当键盘高度覆盖按钮时
+                        contentView.scrollTo(0, srollHeight);
+                    }
+                } else {
+                    // 隐藏键盘时
+                    contentView.scrollTo(0, 0);
+                }
+            }
+        });
+    }
+
+
 
 
 

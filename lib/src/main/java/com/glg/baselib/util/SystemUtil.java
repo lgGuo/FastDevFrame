@@ -4,24 +4,23 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-import android.support.v4.content.FileProvider;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.WindowManager;
-import android.widget.Toast;
-
 import com.glg.baselib.adapter.LibFileProvider;
 import com.glg.baselib.base.BaseApplication;
 import com.orhanobut.logger.Logger;
 
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 public class SystemUtil {
@@ -159,10 +158,57 @@ public class SystemUtil {
         }
 
 
+    }
 
 
+    /**
+     * 判断是否有虚拟底部按钮
+     *
+     * @return
+     */
+    public static boolean checkDeviceHasNavigationBar(Context context) {
+        boolean hasNavigationBar = false;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("config_showNavigationBar", "bool", "android");
+        if (id > 0) {
+            hasNavigationBar = rs.getBoolean(id);
+        }
+        try {
+            Class systemPropertiesClass = Class.forName("android.os.SystemProperties");
+            Method m = systemPropertiesClass.getMethod("get", String.class);
+            String navBarOverride = (String) m.invoke(systemPropertiesClass, "qemu.hw.mainkeys");
+            if ("1".equals(navBarOverride)) {
+                hasNavigationBar = false;
+            } else if ("0".equals(navBarOverride)) {
+                hasNavigationBar = true;
+            }
+        } catch (Exception e) {
+           Logger.e("SystemUtil", e);
+        }
+        return hasNavigationBar;
+    }
+
+    /**
+     * 获取底部虚拟按键高度
+     *
+     * @return
+     */
+    public static int getNavigationBarHeight(Context context) {
+        int navigationBarHeight = 0;
+        Resources rs = context.getResources();
+        int id = rs.getIdentifier("navigation_bar_height", "dimen", "android");
+        if (id > 0 && checkDeviceHasNavigationBar(context)) {
+            navigationBarHeight = rs.getDimensionPixelSize(id);
+        }
+        return navigationBarHeight;
+    }
 
 
-
+    public static void gotoAppDetail(Context context){
+        Intent localIntent = new Intent();
+        localIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
+        localIntent.setData(Uri.fromParts("package",context.getPackageName(), null));
+        context.startActivity(localIntent);
     }
 }
