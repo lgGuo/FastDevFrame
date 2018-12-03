@@ -1,5 +1,6 @@
 package com.glg.baselib.util;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -210,5 +211,19 @@ public class SystemUtil {
         localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
         localIntent.setData(Uri.fromParts("package",context.getPackageName(), null));
         context.startActivity(localIntent);
+    }
+
+
+    /**
+     * 拨打电话
+     * @param context
+     * @param phone
+     */
+    @SuppressLint("MissingPermission")
+    public static void makePhone(Context context, String phone){
+        Intent intent = new Intent(Intent.ACTION_CALL);
+        Uri data = Uri.parse("tel:" + phone);
+        intent.setData(data);
+        context.startActivity(intent);
     }
 }
