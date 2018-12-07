@@ -51,7 +51,17 @@ public class DateUtil {
     }
 
 
+    /**
+     * 把已知时间格式换成目标格式
+     *
+     * @param date 日期
+     * @param newPattern 模式
+     */
+    public static String formateTimeStamp(Date date, String newPattern) {
+        @SuppressLint("SimpleDateFormat") SimpleDateFormat simpleDateFormat = new SimpleDateFormat(newPattern);
+        return simpleDateFormat.format(date);
 
+    }
 
 
 
