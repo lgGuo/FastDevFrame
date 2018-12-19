@@ -18,13 +18,17 @@ import com.weavey.loading.lib.LoadingLayout;
 public class BaseApplication extends Application {
     private static BaseApplication instance;
 
+    protected boolean debugMode(){
+        return false;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
         instance=this;
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override public boolean isLoggable(int priority, String tag) {
-                return BuildConfig.DEBUG;
+                return debugMode();
             }
         });
 
@@ -39,7 +43,7 @@ public class BaseApplication extends Application {
     @Override
     protected void attachBaseContext(Context base) {
         super.attachBaseContext(base);
-        MultiDex.install(this);
+        MultiDex.install(base);
     }
 
 
