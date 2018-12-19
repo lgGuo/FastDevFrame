@@ -24,16 +24,13 @@ public class BaseApplication extends Application {
         instance=this;
         Logger.addLogAdapter(new AndroidLogAdapter() {
             @Override public boolean isLoggable(int priority, String tag) {
-                return true;
+                return BuildConfig.DEBUG;
             }
         });
 
         MMKV.initialize(this);
-
-
         FileDownloader.init(this);
         initLoadLayout();
-
         BGASwipeBackHelper.init(this,  null);
 
     }

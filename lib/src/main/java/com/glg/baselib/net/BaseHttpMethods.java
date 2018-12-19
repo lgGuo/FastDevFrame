@@ -36,6 +36,7 @@ public abstract class BaseHttpMethods {
      * 获取网络请求工具
      * @return
      */
+    @Deprecated
     protected Retrofit getRetrofit(){
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
@@ -58,10 +59,37 @@ public abstract class BaseHttpMethods {
 
 
     /**
+     * 获取网络请求工具
+     * @return
+     */
+    @Deprecated
+    protected Retrofit getRetrofit(boolean addInterceptor){
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS).
+                        writeTimeout(15, TimeUnit.SECONDS);
+        if (addInterceptor){
+            builder.addInterceptor(new OkHttpLoggingInterceptor());
+        }
+
+        OkHttpClient httpClient =  builder.build();
+
+
+        return new Retrofit.Builder()
+                .addConverterFactory(GsonConverterFactory.create())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(getBaseUrl())
+                .client(httpClient)
+                .build();
+    }
+
+
+    /**
      * 获取网络请求工具,该方法用于返回参数非json格式，
      * 例如返回参数加密了需要解密成json
      * @return
      */
+    @Deprecated
     protected Retrofit getRetrofit(Converter.Factory factory){
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
@@ -84,7 +112,30 @@ public abstract class BaseHttpMethods {
 
 
 
+    /**
+     * 获取网络请求工具,该方法用于返回参数非json格式，
+     * 例如返回参数加密了需要解密成json
+     * @return
+     */
+    protected Retrofit getRetrofit(Converter.Factory factory,boolean addInterceptor){
+        OkHttpClient.Builder builder = new OkHttpClient.Builder()
+                .connectTimeout(15, TimeUnit.SECONDS)
+                .readTimeout(15, TimeUnit.SECONDS).
+                        writeTimeout(15, TimeUnit.SECONDS);
+        if (addInterceptor){
+            builder.addInterceptor(new OkHttpLoggingInterceptor());
+        }
 
+        OkHttpClient httpClient =  builder.build();
+
+
+        return new Retrofit.Builder()
+                .addConverterFactory(factory)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .baseUrl(getBaseUrl())
+                .client(httpClient)
+                .build();
+    }
 
 
 }

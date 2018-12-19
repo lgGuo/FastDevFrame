@@ -211,6 +211,7 @@ public class SystemUtil {
         localIntent.setAction("android.settings.APPLICATION_DETAILS_SETTINGS");
         localIntent.setData(Uri.fromParts("package",context.getPackageName(), null));
         context.startActivity(localIntent);
+
     }
 
 
@@ -226,4 +227,9 @@ public class SystemUtil {
         intent.setData(data);
         context.startActivity(intent);
     }
+
+
+
+
+
 }
