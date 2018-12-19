@@ -62,7 +62,6 @@ public abstract class BaseHttpMethods {
      * 获取网络请求工具
      * @return
      */
-    @Deprecated
     protected Retrofit getRetrofit(boolean addInterceptor){
         OkHttpClient.Builder builder = new OkHttpClient.Builder()
                 .connectTimeout(15, TimeUnit.SECONDS)
