@@ -6,6 +6,7 @@ import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.RequestOptions;
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ImageUtil {
 
@@ -26,7 +27,8 @@ public class ImageUtil {
 
     public static void dispalyImage(Context context,String url, ImageView imageView,@DrawableRes int placeHolder,int radius){
 
-        RequestOptions options = new RequestOptions().centerCrop().placeholder(placeHolder).transform(new GlideRoundTransform(context,radius));
+        RequestOptions options = new RequestOptions().centerCrop().placeholder(placeHolder)
+                .transform(new RoundedCornersTransformation(radius,0));
 
         GlideApp.with(context).load(url).apply(options).into(imageView);
     }
