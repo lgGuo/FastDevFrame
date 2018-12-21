@@ -4,9 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.support.annotation.DrawableRes;
 import android.widget.ImageView;
-
 import com.bumptech.glide.request.RequestOptions;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 public class ImageUtil {
 
