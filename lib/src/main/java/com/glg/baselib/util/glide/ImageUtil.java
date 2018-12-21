@@ -28,8 +28,7 @@ public class ImageUtil {
     public static void dispalyImage(Context context,String url, ImageView imageView,@DrawableRes int placeHolder,int radius){
 
         RequestOptions options = new RequestOptions().centerCrop().placeholder(placeHolder)
-                .transform(new RoundedCornersTransformation(radius,0));
-
+                .transform(new CenterCropRoundCornerTransform(radius));
         GlideApp.with(context).load(url).apply(options).into(imageView);
     }
 

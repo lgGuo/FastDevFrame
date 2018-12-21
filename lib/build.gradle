@@ -9,8 +9,8 @@ android {
     defaultConfig {
         minSdkVersion 17
         targetSdkVersion 27
-        versionCode 6
-        versionName "1.0.8"
+        versionCode 7
+        versionName "1.1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -45,8 +45,6 @@ dependencies {
         exclude group: 'com.android.support'
     }
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-
-    implementation 'jp.wasabeef:glide-transformations:4.0.0'
 
     //网络请求
     api('com.squareup.retrofit2:retrofit:2.3.0') {
