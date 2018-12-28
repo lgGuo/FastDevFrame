@@ -3,6 +3,7 @@ package com.glg.baselib.util;
 public class RexUtil {
 
     //线上bug
+    //我是修复
 
     /**
      * 数字
@@ -42,13 +43,9 @@ public class RexUtil {
 
 
 
-    //我是新功能
-    //我是新功能
-    //我是新功能
-    //我是新功能
 
 
 
-    //我是修复
+
 
 }
