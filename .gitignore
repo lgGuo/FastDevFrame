@@ -10,4 +10,5 @@
 /captures
 .externalNativeBuild
 .idea/encodings.xml
+.idea/misc.xml
 .idea/vcs.xml
