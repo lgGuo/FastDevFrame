@@ -5,8 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.Window;
-
+import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 import com.githang.statusbar.StatusBarCompat;
 import com.glg.baselib.R;
 import com.glg.baselib.util.AppManager;
@@ -15,10 +14,7 @@ import com.hannesdorfmann.mosby3.mvp.MvpActivity;
 import com.hannesdorfmann.mosby3.mvp.MvpBasePresenter;
 import com.hannesdorfmann.mosby3.mvp.MvpView;
 import com.jaeger.library.StatusBarUtil;
-
 import org.greenrobot.eventbus.EventBus;
-
-import cn.bingoogolapple.swipebacklayout.BGASwipeBackHelper;
 
 public abstract class BaseMvpActivity<V extends MvpView,P extends MvpBasePresenter<V>>
         extends MvpActivity<V,P> implements  MvpView, BGASwipeBackHelper.Delegate{
@@ -36,6 +32,12 @@ public abstract class BaseMvpActivity<V extends MvpView,P extends MvpBasePresent
 
 
     /**
+     * 初始化逻辑
+     */
+    public abstract void initLogic();
+
+
+    /**
      * 是否需要用EventBus,默认为false,继承此activit
      * 如果需要用酒复写此方法，返回true
      *
@@ -48,22 +50,18 @@ public abstract class BaseMvpActivity<V extends MvpView,P extends MvpBasePresent
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initSwipeBackFinish();
         super.onCreate(savedInstanceState);
-
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(getLayoutID());
-        initViews();
-
         AppManager.getAppManager().addActivity(this);
         if (isUseEventBus()) {
             EventBus.getDefault().register(this);
         }
+        initViews();
+        initLogic();
     }
 
     /**
      * 是否支持滑动返回。这里在父类中默认返回 true 来支持滑动返回，
      * 如果某个界面不想支持滑动返回则重写该方法返回 false 即可
-     *
-     * @return
      */
     @Override
     public boolean isSupportSwipeBack() {

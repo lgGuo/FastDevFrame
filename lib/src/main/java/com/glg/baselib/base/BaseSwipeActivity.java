@@ -28,12 +28,17 @@ public abstract class BaseSwipeActivity
     /**
      * 初始化控件
      */
-
     public abstract void initViews();
 
 
     /**
-     * 是否需要用EventBus,默认为false,继承此activit
+     * 初始化逻辑
+     */
+    public abstract void initLogic();
+
+
+    /**
+     * 是否需要用EventBus,默认为false,继承此activity
      * 如果需要用酒复写此方法，返回true
      *
      */
@@ -46,14 +51,15 @@ public abstract class BaseSwipeActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         initSwipeBackFinish();
         super.onCreate(savedInstanceState);
-
         setContentView(getLayoutID());
-        initViews();
-
         AppManager.getAppManager().addActivity(this);
         if (isUseEventBus()) {
             EventBus.getDefault().register(this);
         }
+        initViews();
+        initLogic();
+
+
     }
 
 
@@ -69,8 +75,6 @@ public abstract class BaseSwipeActivity
     /**
      * 是否支持滑动返回。这里在父类中默认返回 true 来支持滑动返回，
      * 如果某个界面不想支持滑动返回则重写该方法返回 false 即可
-     *
-     * @return
      */
     @Override
     public boolean isSupportSwipeBack() {
