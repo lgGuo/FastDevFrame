@@ -1,0 +1,3 @@
+[submodule "recyclebanner"]
+	path = recyclebanner
+	url = https://github.com/lgGuo/recyclebanner.git
